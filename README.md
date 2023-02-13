@@ -1,4 +1,4 @@
-# i-test-my-case
+# ITestMyCase
 Midterm repo for Code Lou QA course 2
 
 ## Part 1: Postman API Test
