@@ -8,5 +8,5 @@ Midterm repo for Code Lou QA course 2
 - Location: AutomatedApiTestingCsharp/AutomatedApiTestingCsharp/TestFriendsForever.cs
 
 ## Part 3: Performance Testing
-- J-Meter test location: PerformanceTesting/nine-out-of-ten-dentests-agree.jmx
-- Test Description location: PerformanceTesting/nine-out-of-ten-dentests-agree.md
+- J-Meter test location: PerformanceTesting/NineOutOfTenDentestsAgree.jmx
+- Test Description location: PerformanceTesting/NineOutOfTenDentestsAgree.md
