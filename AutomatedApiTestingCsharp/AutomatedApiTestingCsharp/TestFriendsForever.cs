@@ -93,7 +93,7 @@ public class TestFriendsForever
         }
     }
 
-    // PUT request for Yoda Translator API (This API rate limits to 5 POSTS)
+    // PUT request for Yoda Translator API (This API rate limits to 5 POSTS per hour)
     [Fact]
     public async Task YodaTest()
     {
