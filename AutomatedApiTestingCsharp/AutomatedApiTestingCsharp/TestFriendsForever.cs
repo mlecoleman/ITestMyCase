@@ -93,7 +93,7 @@ public class TestFriendsForever
         }
     }
 
-    // PUT request for Yoda Translator API
+    // PUT request for Yoda Translator API (This API rate limits to 5 POSTS)
     [Fact]
     public async Task YodaTest()
     {
@@ -138,7 +138,7 @@ public class TestFriendsForever
 
     // Negative Test - Sending an empty query does not return a successful status code
     [Fact]
-    public async Task WhereInTheWorldIsCarmenSandiegoTest()
+    public async Task NoQueryIncludedTest()
     {
         HttpClient client = new()
         {
