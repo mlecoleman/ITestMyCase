@@ -136,27 +136,22 @@ public class TestFriendsForever
         responseContent.Should().BeNullOrEmpty();
     }
 
-    // Negative Test - Mr. Bean (Actor Rowan Atkinson) is 68
-    // This API predicts age based on a name, so if it is accurate it should predict 68
+    // Negative Test - Sending an empty query does not return a successful status code
     [Fact]
-    public async Task MrBeanAgePredictionTest()
+    public async Task WhereInTheWorldIsCarmenSandiegoTest()
     {
         HttpClient client = new()
         {
-            BaseAddress = new("https://api.agify.io")
+            BaseAddress = new("https://api.nationalize.io")
         };
 
-        var result = await client.GetAsync("?name=MrBean");
+        var result = await client.GetAsync("");
         var content = await result.Content.ReadAsStringAsync();
 
-        var prediction = System.Text.Json.JsonSerializer.Deserialize<AgifyResponseModel>(content);
+
+        var response = System.Text.Json.JsonSerializer.Deserialize<NationalResponseModel>(content);
         _logger.WriteLine(content);
 
-        using (new AssertionScope())
-        {
-            result.IsSuccessStatusCode.Should().BeTrue();
-            prediction.name.Should().Be("MrBean");
-            prediction.age.Should().Be(68);
-        }
+        result.IsSuccessStatusCode.Should().BeFalse();
     }
 }
