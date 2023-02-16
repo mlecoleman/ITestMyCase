@@ -45,7 +45,7 @@ public class TestFriendsForever
             RequestUri = new Uri("https://love-calculator.p.rapidapi.com/getPercentage?sname=Class%20Example&fname=pants"),
             Headers =
             {
-                { "X-RapidAPI-Key", "" },
+                { "X-RapidAPI-Key", "ca4b23e227msh1d31a44600af94dp128ccdjsn2df60625cea5" },
                 { "X-RapidAPI-Host", "love-calculator.p.rapidapi.com" },
             },
         };
@@ -148,9 +148,9 @@ public class TestFriendsForever
 
         var result = await client.GetAsync("?name=MrBean");
         var content = await result.Content.ReadAsStringAsync();
-        _logger.WriteLine(content);
 
         var prediction = System.Text.Json.JsonSerializer.Deserialize<AgifyResponseModel>(content);
+        _logger.WriteLine(content);
 
         using (new AssertionScope())
         {

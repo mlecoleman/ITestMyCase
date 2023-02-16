@@ -7,6 +7,48 @@
 	},
 	"item": [
 		{
+			"name": "Cat Facts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Length is not zero\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.be.greaterThan(0);",
+							"});",
+							"pm.test(\"Body should say something about cat\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"cat\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://catfact.ninja/fact",
+					"protocol": "https",
+					"host": [
+						"catfact",
+						"ninja"
+					],
+					"path": [
+						"fact"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Yoda Translation Query",
 			"event": [
 				{
@@ -84,6 +126,9 @@
 							"});",
 							"pm.test(\"Body matches translation type\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"yoda\");",
+							"});",
+							"pm.test(\"Body matches translated text\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Pants,  the inside joke from the qa cohort is.\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -119,15 +164,60 @@
 			"response": []
 		},
 		{
-			"name": "Predict Trent's Age Based On Name",
+			"name": "Neg Test - Should be Null because of \".\" in Name Mr.Bean",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Trent's Predicted Age is Correct\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Your test name\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.age).to.be.below(50);",
+							"    pm.expect(jsonData.age).to.eql(null);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.agify.io?name=Mr.Bean",
+					"protocol": "https",
+					"host": [
+						"api",
+						"agify",
+						"io"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Mr.Bean"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Predict Age",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Mr Bean's predicted age\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.age).to.eql(50);",
 							"});",
 							""
 						],
@@ -139,7 +229,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.agify.io?name=Trent",
+					"raw": "https://api.agify.io?name=MrBean",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -149,7 +239,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "Trent"
+							"value": "MrBean"
 						}
 					]
 				}
@@ -176,7 +266,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Pants Pro\",\n    \"data\": {\n        \"color\": \"Denim\",\n        \"capacity\": \"128 GB\"\n    }\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -194,6 +284,350 @@
 						"api",
 						"users",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bored",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Server is present\", function () {",
+							"    pm.response.to.have.header(\"Server\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.boredapi.com/api/activity",
+					"protocol": "https",
+					"host": [
+						"www",
+						"boredapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"activity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Genderize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Pat is a Man\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"male\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.genderize.io?name=pat",
+					"protocol": "https",
+					"host": [
+						"api",
+						"genderize",
+						"io"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "pat"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Where in the world is Carmen Sandiego!?",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Where in the world is Carmen San Diego\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.country).to.eql([]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.nationalize.io?name=carmensandiego",
+					"protocol": "https",
+					"host": [
+						"api",
+						"nationalize",
+						"io"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "carmensandiego"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Look at this cute dog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dog.ceo/api/breeds/image/random",
+					"protocol": "https",
+					"host": [
+						"dog",
+						"ceo"
+					],
+					"path": [
+						"api",
+						"breeds",
+						"image",
+						"random"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Funny Joke!",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"There better be a punchline\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.punchline).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://official-joke-api.appspot.com/random_joke",
+					"protocol": "https",
+					"host": [
+						"official-joke-api",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"random_joke"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Random User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Verify results are present\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.results).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://randomuser.me/api/",
+					"protocol": "https",
+					"host": [
+						"randomuser",
+						"me"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches string Fiji\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Fiji\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://universities.hipolabs.com/search?country=fiji",
+					"protocol": "http",
+					"host": [
+						"universities",
+						"hipolabs",
+						"com"
+					],
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "fiji"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Home Town",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"78704 is Autin Texas\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Austin\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/us/78704",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"us",
+						"78704"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Skip to My Lou",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"40204 is Lou Ky\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Louisville\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.zippopotam.us/us/40204",
+					"protocol": "https",
+					"host": [
+						"api",
+						"zippopotam",
+						"us"
+					],
+					"path": [
+						"us",
+						"40204"
 					]
 				}
 			},
